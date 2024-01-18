@@ -1913,7 +1913,8 @@
         "x": 12,
         "y": 17
       },
-      "id": 112,
+      "hideTimeOverride": false,
+      "id": 128,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -1941,17 +1942,18 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "protocol_known_peers{job=\"massa-node\"}",
+          "expr": "sum(increase(wallet_balance{job=\"massa-client\"}[1d]))",
           "format": "time_series",
           "hide": false,
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
+          "range": false,
           "refId": "A"
         }
       ],
-      "title": "Number of stakers",
+      "title": "Tokens per 24 hour",
       "type": "stat"
     },
     {
@@ -1959,6 +1961,7 @@
         "type": "prometheus",
         "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1989,7 +1992,7 @@
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "always",
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1999,20 +2002,27 @@
               "mode": "off"
             }
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
@@ -2022,15 +2032,16 @@
         "x": 15,
         "y": 17
       },
-      "id": 113,
+      "hideTimeOverride": false,
+      "id": 129,
+      "links": [],
+      "maxDataPoints": 100,
       "options": {
         "legend": {
           "calcs": [],
-          "displayMode": "table",
+          "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Name",
-          "sortDesc": false
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -2044,20 +2055,21 @@
             "type": "prometheus",
             "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
           },
-          "disableTextWrap": false,
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "protocol_known_peers{job=\"massa-node\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
+          "exemplar": true,
+          "expr": "sum(increase(wallet_balance{job=\"massa-client\"}[1d]))",
+          "format": "time_series",
+          "hide": false,
           "instant": false,
-          "legendFormat": "Stakers",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "MASSA",
           "range": true,
-          "refId": "A",
-          "useBackend": false
+          "refId": "A"
         }
       ],
-      "title": "Number of stakers",
+      "timeFrom": "7d",
+      "title": "Tokens per 24 hour",
       "type": "timeseries"
     },
     {
@@ -2457,6 +2469,382 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 0,
+        "y": 33
+      },
+      "id": 112,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "protocol_known_peers{job=\"massa-node\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Number of stakers",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 3,
+        "y": 33
+      },
+      "id": 113,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Name",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "protocol_known_peers{job=\"massa-node\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Nodes",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Number of stakers",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 12,
+        "y": 33
+      },
+      "id": 130,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "rolls{job=\"massa-node\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Number of rolls",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 15,
+        "y": 33
+      },
+      "id": 131,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Name",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "da74e314-ab7d-49c2-bbdd-44b4d1477a3d"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "rolls{job=\"massa-node\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Rolls",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Number of rolls",
+      "type": "timeseries"
+    },
+    {
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
@@ -2466,7 +2854,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 41
       },
       "id": 63,
       "panels": [],
@@ -2527,7 +2915,7 @@
         "h": 5,
         "w": 2,
         "x": 0,
-        "y": 34
+        "y": 42
       },
       "hideTimeOverride": true,
       "id": 65,
@@ -2619,7 +3007,7 @@
         "h": 2,
         "w": 2,
         "x": 2,
-        "y": 34
+        "y": 42
       },
       "id": 67,
       "links": [],
@@ -2701,7 +3089,7 @@
         "h": 5,
         "w": 9,
         "x": 4,
-        "y": 34
+        "y": 42
       },
       "id": 71,
       "interval": "",
@@ -2836,7 +3224,7 @@
         "h": 5,
         "w": 3,
         "x": 13,
-        "y": 34
+        "y": 42
       },
       "hideTimeOverride": false,
       "id": 73,
@@ -2888,7 +3276,7 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 34
+        "y": 42
       },
       "id": 75,
       "links": [],
@@ -3124,7 +3512,7 @@
         "h": 3,
         "w": 2,
         "x": 2,
-        "y": 36
+        "y": 44
       },
       "id": 69,
       "links": [],
@@ -3188,7 +3576,7 @@
         "h": 11,
         "w": 13,
         "x": 0,
-        "y": 39
+        "y": 47
       },
       "hiddenSeries": false,
       "id": 77,
@@ -3383,7 +3771,7 @@
         "h": 11,
         "w": 11,
         "x": 13,
-        "y": 39
+        "y": 47
       },
       "hiddenSeries": false,
       "id": 79,
@@ -3562,7 +3950,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 50
+        "y": 58
       },
       "height": "300",
       "hiddenSeries": false,
@@ -3696,7 +4084,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 50
+        "y": 58
       },
       "height": "300",
       "hiddenSeries": false,
@@ -3818,7 +4206,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 50
+        "y": 58
       },
       "height": "300",
       "hiddenSeries": false,
@@ -3962,7 +4350,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 58
+        "y": 66
       },
       "height": "300",
       "hiddenSeries": false,
@@ -4080,7 +4468,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 58
+        "y": 66
       },
       "height": "300",
       "hiddenSeries": false,
@@ -4273,6 +4661,6 @@
   "timezone": "",
   "title": "Massa",
   "uid": "Massa",
-  "version": 20,
+  "version": 22,
   "weekStart": ""
 }
